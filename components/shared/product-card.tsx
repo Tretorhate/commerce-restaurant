@@ -36,7 +36,7 @@ export const ProductCard: React.FC<Props> = ({
           <span className="text-[20px]">
             from <b>{price}$</b>
           </span>
-          <Button variant="secondary" className="text-base font-bold">
+          <Button variant="outline" className="text-base font-bold">
             <Plus size={20} className="mr-1" />
             Add
           </Button>

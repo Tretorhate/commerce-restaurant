@@ -1,26 +1,63 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import React from "react";
 import { Title } from "./title";
-import { FilterCheckbox } from "./filtercheckbox";
 import { Input } from "../ui";
 import { RangeSlider } from "./range-slider";
 import { CheckboxFiltersGroup } from "./checkbox-filters-group";
+import { useFilters, useIngredients, useQueryFilters } from "@/hooks";
 
 interface Props {
   className?: string;
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
+  const { ingredients, loading } = useIngredients();
+  const filters = useFilters();
+
+  useQueryFilters(filters);
+
+  const items = ingredients.map((item) => ({
+    value: String(item.id),
+    text: item.name,
+  }));
+
+  const updatePrices = (prices: number[]) => {
+    filters.setPrices("priceFrom", prices[0]);
+    filters.setPrices("priceTo", prices[1]);
+  };
+
   return (
     <div className={cn("", className)}>
       <Title text="Filters" size="sm" className="mb-5 font-bold" />
 
       {/* Верхние Чекбоксы */}
 
-      <div className="flex flex-col gap-4">
-        <FilterCheckbox text="Collectable" value="1" />
-        <FilterCheckbox text="Newest" value="2" />
-      </div>
+      <CheckboxFiltersGroup
+        title="Donut Type"
+        name="donutTypes"
+        className="mb-5"
+        onClickCheckbox={filters.setDonutTypes}
+        selected={filters.donutTypes}
+        items={[
+          { text: "Thin", value: "1" },
+          { text: "Traditional", value: "2" },
+        ]}
+      />
+
+      <CheckboxFiltersGroup
+        title="Sizes"
+        className="mt-5"
+        onClickCheckbox={filters.setSizes}
+        name="sizes"
+        selected={filters.sizes}
+        items={[
+          { text: "6 cm", value: "6" },
+          { text: "8 cm", value: "8" },
+          { text: "10 cm", value: "10" },
+        ]}
+      />
 
       {/* Фильтр Цен */}
       <div className="mt-5 border-y border-y-neutral-100 py-6 pb-7">
@@ -31,41 +68,44 @@ export const Filters: React.FC<Props> = ({ className }) => {
             placeholder="0"
             min={0}
             max={30000}
-            defaultValue={0}
+            value={String(filters.prices.priceFrom)}
+            onChange={(e) =>
+              filters.setPrices("priceFrom", Number(e.target.value))
+            }
           />
-          <Input type="number" placeholder="5000" min={100} max={1000} />
+          <Input
+            type="number"
+            placeholder="1000"
+            min={100}
+            max={1000}
+            value={String(filters.prices.priceTo)}
+            onChange={(e) =>
+              filters.setPrices("priceTo", Number(e.target.value))
+            }
+          />
         </div>
 
-        <RangeSlider min={0} max={5000} step={10} value={[0, 5000]} />
+        <RangeSlider
+          min={0}
+          max={1000}
+          step={10}
+          value={[
+            filters.prices.priceFrom || 0,
+            filters.prices.priceTo || 1000,
+          ]}
+          onValueChange={updatePrices}
+        />
       </div>
       <CheckboxFiltersGroup
         title="Ingredients"
         className="mt-5"
         limit={6}
-        defaultItems={[
-          { text: "Strawberry", value: "1" },
-          { text: "Blueberry", value: "2" },
-          { text: "Raspberry", value: "3" },
-          { text: "Chocolate", value: "4" },
-          { text: "Cream", value: "5" },
-          { text: "Caramel", value: "6" },
-          { text: "Banana", value: "7" },
-          { text: "Mango", value: "8" },
-          { text: "Orange", value: "9" },
-          { text: "Pineapple", value: "10" },
-        ]}
-        items={[
-          { text: "Strawberry", value: "1" },
-          { text: "Blueberry", value: "2" },
-          { text: "Raspberry", value: "3" },
-          { text: "Chocolate", value: "4" },
-          { text: "Cream", value: "5" },
-          { text: "Caramel", value: "6" },
-          { text: "Banana", value: "7" },
-          { text: "Mango", value: "8" },
-          { text: "Orange", value: "9" },
-          { text: "Pineapple", value: "10" },
-        ]}
+        defaultItems={items.slice(0, 6)}
+        items={items}
+        loading={loading}
+        onClickCheckbox={filters.setSelectedIngredients}
+        selected={filters.selectedIngredients}
+        name="ingredients"
       />
     </div>
   );
