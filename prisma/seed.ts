@@ -9,17 +9,17 @@ const randomDecimalNumber = (min: number, max: number) => {
 
 const generateProductItem = ({
   productId,
-  donutType,
+  cargoType,
   size,
 }: {
   productId: number;
-  donutType?: 1 | 2;
+  cargoType?: 1 | 2;
   size?: 6 | 8 | 10;
 }) => {
   return {
     productId,
     price: randomDecimalNumber(190, 600),
-    donutType,
+    cargoType,
     size,
   } as Prisma.ProductItemUncheckedCreateInput;
 };
@@ -56,33 +56,30 @@ async function up() {
     data: ingredients,
   });
 
-  const donut1 = await prisma.product.create({
+  const cargotruck1 = await prisma.product.create({
     data: {
-      name: "Chochalate Donut",
-      imageUrl:
-        "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=292",
+      name: "Standard Truck Freight",
+      imageUrl: "/imageProducts/Standart_Truck.svg", // standard truck
       categoryId: 1,
       ingredients: {
         connect: ingredients.slice(0, 5),
       },
     },
   });
-  const donut2 = await prisma.product.create({
+  const cargotruck2 = await prisma.product.create({
     data: {
-      name: "Classic Glazed Donut",
-      imageUrl:
-        "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=292",
+      name: "Express Truck Delivery",
+      imageUrl: "/imageProducts/Express_Truck_Delievery.svg", // express truck
       categoryId: 1,
       ingredients: {
         connect: ingredients.slice(5, 10),
       },
     },
   });
-  const donut3 = await prisma.product.create({
+  const cargotruck3 = await prisma.product.create({
     data: {
-      name: "Strawberry Donut",
-      imageUrl:
-        "https://images.unsplash.com/photo-1514517220017-8ce97a34a7b6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      name: "Heavy Haul Trucking",
+      imageUrl: "/imageProducts/Heavy_Haul_Trucking.svg", // heavy haul truck
       categoryId: 1,
       ingredients: {
         connect: ingredients.slice(10, 40),
@@ -93,22 +90,38 @@ async function up() {
   await prisma.productItem.createMany({
     data: [
       // chocalate
-      generateProductItem({ productId: donut1.id, donutType: 1, size: 6 }),
-      generateProductItem({ productId: donut1.id, donutType: 2, size: 8 }),
-      generateProductItem({ productId: donut1.id, donutType: 2, size: 10 }),
+      generateProductItem({ productId: cargotruck1.id, cargoType: 1, size: 6 }),
+      generateProductItem({ productId: cargotruck1.id, cargoType: 2, size: 8 }),
+      generateProductItem({
+        productId: cargotruck1.id,
+        cargoType: 2,
+        size: 10,
+      }),
 
-      // glazed donut
-      generateProductItem({ productId: donut2.id, donutType: 1, size: 6 }),
-      generateProductItem({ productId: donut2.id, donutType: 1, size: 8 }),
-      generateProductItem({ productId: donut2.id, donutType: 1, size: 10 }),
-      generateProductItem({ productId: donut2.id, donutType: 2, size: 6 }),
-      generateProductItem({ productId: donut2.id, donutType: 2, size: 8 }),
-      generateProductItem({ productId: donut2.id, donutType: 2, size: 10 }),
+      // glazed cargo
+      generateProductItem({ productId: cargotruck2.id, cargoType: 1, size: 6 }),
+      generateProductItem({ productId: cargotruck2.id, cargoType: 1, size: 8 }),
+      generateProductItem({
+        productId: cargotruck2.id,
+        cargoType: 1,
+        size: 10,
+      }),
+      generateProductItem({ productId: cargotruck2.id, cargoType: 2, size: 6 }),
+      generateProductItem({ productId: cargotruck2.id, cargoType: 2, size: 8 }),
+      generateProductItem({
+        productId: cargotruck2.id,
+        cargoType: 2,
+        size: 10,
+      }),
 
-      // strawberry donut
-      generateProductItem({ productId: donut3.id, donutType: 1, size: 6 }),
-      generateProductItem({ productId: donut3.id, donutType: 2, size: 8 }),
-      generateProductItem({ productId: donut3.id, donutType: 2, size: 10 }),
+      // strawberry cargo
+      generateProductItem({ productId: cargotruck3.id, cargoType: 1, size: 6 }),
+      generateProductItem({ productId: cargotruck3.id, cargoType: 2, size: 8 }),
+      generateProductItem({
+        productId: cargotruck3.id,
+        cargoType: 2,
+        size: 10,
+      }),
 
       // Остальные продукты
       generateProductItem({ productId: 1 }),
