@@ -5,6 +5,7 @@ import { Container } from "./container";
 import { ArrowRight, ShoppingCart, User } from "lucide-react";
 import Link from "next/link";
 import { SearchInput } from "./search-input";
+import { ModeToggle } from "./mode-toggle";
 
 interface Props {
   className?: string;
@@ -61,6 +62,7 @@ export const Header: React.FC<Props> = ({ className }) => {
             Login
           </Button>
 
+          <ModeToggle />
           <div>
             <Button className="group relative">
               <b>10$</b>

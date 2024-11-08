@@ -15,4 +15,6 @@ export { GroupVariants } from "./group-variants";
 export { ChooseProductForm } from "./choose-product-form";
 export { ChooseCargoForm } from "./choose-cargo-form";
 export { IngredientItem } from "./ingredient-item";
+export { ThemeProvider } from "./theme-provider";
+export { ModeToggle } from "./mode-toggle";
 export * from "./modals";

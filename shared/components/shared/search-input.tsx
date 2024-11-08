@@ -53,7 +53,7 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
         <Search className="absolute top-1/2 left-3 translate-y-[-50%] h-5 text-gray-400" />
         <input
           type="text"
-          className="rounded-2xl w-full bg-gray-100 pl-11 outline-none pt-[2px]"
+          className="rounded-2xl w-full bg-muted pl-11 outline-none pt-[2px]"
           placeholder="Search a cargo... "
           onFocus={() => setFocused(true)}
           value={searchQuery}
@@ -62,7 +62,7 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
 
         <div
           className={cn(
-            "absolute w-full bg-white rounded-xl py-2 top-14 shadow-md transition-all duration-200 invisible opacity-0 z-30",
+            "absolute w-full bg-muted rounded-xl py-2 top-14 shadow-md transition-all duration-200 invisible opacity-0 z-30",
             focused && "visible opacity-100 top-12"
           )}
         >

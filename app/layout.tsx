@@ -1,5 +1,6 @@
 import { Nunito } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/shared/components/shared";
 
 const nunito = Nunito({
   subsets: ["cyrillic"],
@@ -17,7 +18,16 @@ export default function RootLayout({
       <head>
         <link data-rh="true" rel="icon" href="/logo.svg" />
       </head>
-      <body className={nunito.variable}>{children}</body>
+      <body className={nunito.variable}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
