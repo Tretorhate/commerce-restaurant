@@ -24,7 +24,7 @@ export default async function ProductPage({
     <Container className="flex flex-col my-10">
       <div className="flex flex-1">
         <ProductImage imageUrl={product.imageUrl} size={8} />
-        <div className="w-[490px] bg-[#f7f6f5] p-7">
+        <div className="w-[490px] bg-secondary p-7">
           <Title
             text={product.name}
             size="md"
