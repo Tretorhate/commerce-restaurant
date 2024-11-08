@@ -1,21 +1,17 @@
+"use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 import React from "react";
-import { useSet } from "react-use";
 import { ProductImage } from "./product-image";
 import { Title } from "./title";
 import { Button } from "../ui";
 import { GroupVariants } from "./group-variants";
-import {
-  CargoSize,
-  cargoSizes,
-  CargoType,
-  cargoTypes,
-  mapCargoType,
-} from "@/shared/constants/cargo";
+import { CargoSize, CargoType, cargoTypes } from "@/shared/constants/cargo";
 import { Ingredient, ProductItem } from "@prisma/client";
 import { IngredientItem } from "./ingredient-item";
+import { getCargoDetails } from "@/shared/lib";
+import { useCargoOptions } from "@/shared/hooks";
 
 interface Props {
   imageUrl: string;
@@ -34,22 +30,24 @@ export const ChooseCargoForm: React.FC<Props> = ({
   onClickAddCart,
   className,
 }) => {
-  const [size, setSize] = React.useState<CargoSize>(8);
-  const [type, setType] = React.useState<CargoType>(1);
+  const {
+    size,
+    type,
+    selectedIngredients,
+    availableSizes,
+    currentItemId,
+    setSize,
+    setType,
+    addIngredient,
+  } = useCargoOptions(items);
 
-  const [selectedIngredients, { toggle: addIngredient }] = useSet(
-    new Set<number>([])
+  const { totalPrice, textDetails } = getCargoDetails(
+    type,
+    size,
+    items,
+    ingredients,
+    selectedIngredients
   );
-
-  const textDetails = `${size} tons, ${mapCargoType[type]} cargo devilery, additional features: (${selectedIngredients.size}) `;
-
-  const cargoPrice =
-    items.find((item) => item.cargoType === type && item.size === size)
-      ?.price || 0;
-  const totalIngredientsPrice = ingredients
-    .filter((ingredient) => selectedIngredients.has(ingredient.id))
-    .reduce((acc, ingredient) => acc + ingredient.price, 0);
-  const totalPrice = cargoPrice + totalIngredientsPrice;
 
   const handleClickAdd = () => {
     onClickAddCart?.();
@@ -59,7 +57,6 @@ export const ChooseCargoForm: React.FC<Props> = ({
       ingredients: selectedIngredients,
     });
   };
-
   return (
     <div className={cn(className, "flex flex-1")}>
       <ProductImage imageUrl={imageUrl} size={size} />
@@ -71,7 +68,7 @@ export const ChooseCargoForm: React.FC<Props> = ({
 
         <div className="flex flex-col gap-4 mt-5">
           <GroupVariants
-            items={cargoSizes}
+            items={availableSizes}
             value={String(size)}
             onClick={(value) => setSize(Number(value) as CargoSize)}
           />
