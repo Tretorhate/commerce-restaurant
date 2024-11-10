@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { create } from "zustand";
 import { Api } from "../services/api-client";
 import { getCartDetails } from "../lib";
