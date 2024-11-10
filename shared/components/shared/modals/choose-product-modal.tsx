@@ -3,9 +3,8 @@ import { Dialog, DialogContent } from "@/shared/components/ui/dialog";
 import { cn } from "@/shared/lib/utils";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { ChooseProductForm } from "../choose-product-form";
 import { ProductWithRelations } from "@/@types/prisma";
-import { ChooseCargoForm } from "../choose-cargo-form";
+import { ProductForm } from "../product-form";
 
 interface Props {
   product: ProductWithRelations;
@@ -14,7 +13,6 @@ interface Props {
 
 export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
   const router = useRouter();
-  const isCargoForm = Boolean(product?.items[0].cargoType);
 
   return (
     <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
@@ -24,16 +22,7 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
           className
         )}
       >
-        {isCargoForm ? (
-          <ChooseCargoForm
-            imageUrl={product.imageUrl}
-            name={product.name}
-            ingredients={product.ingredients}
-            items={product.items}
-          />
-        ) : (
-          <ChooseProductForm imageUrl={product.imageUrl} name={product.name} />
-        )}
+        <ProductForm product={product} onSubmit={() => router.back()} />
       </DialogContent>
     </Dialog>
   );

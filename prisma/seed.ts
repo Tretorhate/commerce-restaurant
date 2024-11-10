@@ -1,6 +1,6 @@
 import { prisma } from "./prisma-client";
 import { hashSync } from "bcrypt";
-import { categories, ingredients, products } from "./constants";
+import { categories, _ingredients, products } from "./constants";
 import { Prisma } from "@prisma/client";
 
 const randomDecimalNumber = (min: number, max: number) => {
@@ -53,7 +53,7 @@ async function up() {
   });
 
   await prisma.ingredient.createMany({
-    data: ingredients,
+    data: _ingredients,
   });
 
   const cargotruck1 = await prisma.product.create({
@@ -62,7 +62,7 @@ async function up() {
       imageUrl: "/imageProducts/Standart_Truck.svg", // standard truck
       categoryId: 1,
       ingredients: {
-        connect: ingredients.slice(0, 5),
+        connect: _ingredients.slice(0, 5),
       },
     },
   });
@@ -72,7 +72,7 @@ async function up() {
       imageUrl: "/imageProducts/Express_Truck_Delievery.svg", // express truck
       categoryId: 1,
       ingredients: {
-        connect: ingredients.slice(5, 10),
+        connect: _ingredients.slice(5, 10),
       },
     },
   });
@@ -82,7 +82,7 @@ async function up() {
       imageUrl: "/imageProducts/Heavy_Haul_Trucking.svg", // heavy haul truck
       categoryId: 1,
       ingredients: {
-        connect: ingredients.slice(10, 40),
+        connect: _ingredients.slice(10, 40),
       },
     },
   });

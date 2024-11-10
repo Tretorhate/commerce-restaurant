@@ -1,6 +1,7 @@
 import { Nunito } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/shared/components/shared";
+import { Toaster } from "react-hot-toast";
 
 const nunito = Nunito({
   subsets: ["cyrillic"],
@@ -26,6 +27,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
