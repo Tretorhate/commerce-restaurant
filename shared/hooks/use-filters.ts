@@ -66,14 +66,17 @@ export const useFilters = (): ReturnProps => {
     }));
   };
 
-  return {
-    sizes,
-    cargoTypes,
-    selectedIngredients,
-    prices,
-    setPrices: updatePrice,
-    setCargoTypes: toggleCargoTypes,
-    setSizes: toggleSizes,
-    setSelectedIngredients: toggleIngredients,
-  };
+  return React.useMemo(
+    () => ({
+      sizes,
+      cargoTypes,
+      selectedIngredients,
+      prices,
+      setPrices: updatePrice,
+      setCargoTypes: toggleCargoTypes,
+      setSizes: toggleSizes,
+      setSelectedIngredients: toggleIngredients,
+    }),
+    [sizes, cargoTypes, prices, selectedIngredients]
+  );
 };

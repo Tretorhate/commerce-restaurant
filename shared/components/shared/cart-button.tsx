@@ -23,7 +23,7 @@ export const CartButton: React.FC<Props> = ({ className }) => {
         loading={loading}
         className={cn("group relative", { "w-[105px]": loading }, className)}
       >
-        <b>{totalAmount}$</b>
+        <b>{totalAmount > 0 ? totalAmount : "0"}$</b>
         <span className="h-full w-[1px] bg-white/30 mx-3" />
         <div className="flex items-center gap-1 transition duration-300 group-hover:opacity-0 ">
           <ShoppingCart size={16} className="relative" strokeWidth={2} />

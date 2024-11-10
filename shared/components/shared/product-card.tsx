@@ -5,12 +5,14 @@ import { Title } from "./title";
 import { Button } from "../ui";
 import { Plus } from "lucide-react";
 import { useTheme } from "next-themes";
+import { Ingredient } from "@prisma/client";
 
 interface Props {
   id: number;
   name: string;
   price: number;
   imageUrl: string;
+  ingredients: Ingredient[];
   className?: string;
 }
 
@@ -19,6 +21,7 @@ export const ProductCard: React.FC<Props> = ({
   name,
   price,
   imageUrl,
+  ingredients,
   className,
 }) => {
   const currentTheme = useTheme();
@@ -37,7 +40,7 @@ export const ProductCard: React.FC<Props> = ({
 
         <Title text={name} size="sm" className="font-bold mb-1 mt-3" />
         <p className="text-sm text-gray-400">
-          Faster, Stronger, Smarter, Better, Even Better
+          {ingredients.map((ingredient) => ingredient.name).join(", ")}
         </p>
 
         <div className="flex justify-between items-center mt-4">

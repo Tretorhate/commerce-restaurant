@@ -82,7 +82,7 @@ async function up() {
       imageUrl: "/imageProducts/Heavy_Haul_Trucking.svg", // heavy haul truck
       categoryId: 1,
       ingredients: {
-        connect: _ingredients.slice(10, 40),
+        connect: _ingredients.slice(10, 15),
       },
     },
   });
