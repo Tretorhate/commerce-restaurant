@@ -21,4 +21,7 @@ export { CartButton } from "./cart-button";
 export { CountIconButton } from "./count-icon-button";
 export { CountButton } from "./count-button";
 export { ProductForm } from "./product-form";
+export { CheckoutItemDetails } from "./checkout-item-details";
+export { CheckoutItem } from "./checkout-item";
+export { CheckoutSidebar } from "./checkout-sidebar";
 export * from "./modals";
