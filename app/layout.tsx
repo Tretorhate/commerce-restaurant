@@ -1,6 +1,6 @@
 import { Nunito } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/shared/components/shared";
+import { Providers, ThemeProvider } from "@/shared/components/shared";
 import { Toaster } from "react-hot-toast";
 
 const nunito = Nunito({
@@ -26,7 +26,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <Providers>{children}</Providers>
           <Toaster />
         </ThemeProvider>
       </body>

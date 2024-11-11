@@ -24,4 +24,8 @@ export { ProductForm } from "./product-form";
 export { CheckoutItemDetails } from "./checkout-item-details";
 export { CheckoutItem } from "./checkout-item";
 export { CheckoutSidebar } from "./checkout-sidebar";
+export { Providers } from "./providers";
+export { ProfileForm } from "./profile-form";
+export { InfoBlock } from "./info-block";
 export * from "./modals";
+export * from "./email-templates";

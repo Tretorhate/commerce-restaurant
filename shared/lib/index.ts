@@ -5,3 +5,4 @@ export { getCartItemDetails } from "./get-cart-item-details";
 export { getCartDetails } from "./get-cart-details";
 export { updateCartTotalAmount } from "./update-cart-total-amount";
 export { findCargos } from "./find-cargos";
+export { sendEmail } from "./send-email";
