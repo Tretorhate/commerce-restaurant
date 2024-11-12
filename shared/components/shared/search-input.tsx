@@ -3,6 +3,7 @@ import { cn } from "@/shared/lib/utils";
 import { Api } from "@/shared/services/api-client";
 import { Product } from "@prisma/client";
 import { Search } from "lucide-react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import React from "react";
 import { useClickAway, useDebounce } from "react-use";
@@ -16,7 +17,7 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
   const [focused, setFocused] = React.useState(false);
   const [products, setProducts] = React.useState<Product[]>([]);
   const ref = React.useRef(null);
-
+  const currentTheme = useTheme();
   useClickAway(ref, () => setFocused(false));
 
   useDebounce(
@@ -75,7 +76,9 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
                 onClick={onClickItem}
               >
                 <img
-                  className="rounded-sm h-8 w-8"
+                  className={`  ${
+                    currentTheme ? "dark:invert" : ""
+                  } + rounded-sm h-8 w-8`}
                   src={product.imageUrl}
                   width={32}
                   height={32}
