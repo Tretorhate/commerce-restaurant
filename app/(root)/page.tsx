@@ -18,7 +18,7 @@ export default async function Home({
 
   return (
     <>
-      <Container className="mt-10">
+      <Container className="mt-10 pl-4 lg:pl-0">
         <Title text="Deliveries" size="lg" className="font-extrabold" />
       </Container>
       <TopBar
@@ -26,17 +26,19 @@ export default async function Home({
           (category) => category.products.length > 0
         )}
       />
-      <Container className="pb-14 mt-10">
-        <div className="flex gap-[80px]">
+      <Container className="pb-14 mt-10 ">
+        <div className="flex gap-[80px]  flex-col lg:flex-row">
           {/* Filtration */}
-          <div className="w-[250px]">
-            <Suspense>
-              <Filters />
-            </Suspense>
+          <div className=" pl-12 lg:pl-0">
+            <div className="w-[250px] ">
+              <Suspense>
+                <Filters />
+              </Suspense>
+            </div>
           </div>
           {/* List of Products  */}
           <div className="flex-1">
-            <div className="flex flex-col gap-16">
+            <div className="flex flex-col p-4 md:p-0   gap-16">
               {categories.map(
                 (category) =>
                   category.products.length > 0 && (
