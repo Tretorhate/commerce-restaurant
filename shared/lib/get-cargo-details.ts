@@ -16,7 +16,7 @@ export const getCargoDetails = (
     ingredients,
     selectedIngredients
   );
-  const textDetails = `${size} см, ${mapCargoType[type]} пицца`;
+  const textDetails = `${size} см, ${mapCargoType[type]} cargo devilery`;
 
   return { totalPrice, textDetails };
 };

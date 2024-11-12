@@ -185,7 +185,7 @@ export async function registerUser(body: Prisma.UserCreateInput) {
 
     await sendEmail(
       createdUser.email,
-      "Next Pizza / 📝 Confirmation of registration",
+      "Hermes Group / 📝 Confirmation of registration",
       VerificationUserTemplate({
         code,
       })
